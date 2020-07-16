@@ -4,10 +4,23 @@ $(document).ready(()=>{
     stockeTotal();
     Lastselle();
     chiffreDaffaire();
+    MyProfil();
+    produitEcoule();
 });
 
-
 // Functions
+
+function produitEcoule(){
+    let action = 'produitEcoule';
+    $.ajax({
+        url: './config/event.php',
+        method: 'post',
+        data: {action: action},
+        success: function(data){
+            $('.produitEcoule').html(data);
+        }
+    })
+}
 
 function chiffreDaffaire(){
     let action = 'chiffreDaffaire';

@@ -425,7 +425,7 @@ if(isset($_POST['ajouterPersonnel'])){
     if(empty($post)){array_push($errors, "Fonction ou poste est vide");}
 
     if(count($errors) == 0){
-        $sql = mysqli_query($con, "INSERT INTO `login`(Compte, `Nom`, `Mot_de_pass`, `Fonction`) VALUES('$username', '$name', '$pass', '$post')");
+        $sql = mysqli_query($con, "INSERT INTO `login`(Compte, `Nom`, `Mot_de_passe`, `Fonction`) VALUES('$username', '$name', '$pass', '$post')");
         if($sql){
             print '<p class="alert alert-success ui message positive">Enregistrement reussi!!!</p>';
         }else{

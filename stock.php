@@ -53,7 +53,13 @@
               <a class="nav-link" href="admin.php"><i class="fa fa-users"></i> Personnelles </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="profil.php"><i class="fa fa-user"></i> Profil</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="propos.php"><i class="fa fa-comment"></i> A propos </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./includes/logout.php"><i class="icon logout"></i> Se deconnecte</a>
             </li>
           </ul>
         </div>
@@ -102,12 +108,11 @@
                                         <div class="form-group">
                                             <button type="submit" name="edit" class="btn btn-block btn-warning">Modifie</button>
                                         </div>
-                                        <p class="d-flex justify-content-between">
-                                            <span>Par Piece</span>
-                                            ''
-                                        </p>
                                     </form>
                                 </div>
+                            </div>
+                            <div id="modification">
+                                <input type="hidden" id="myId" value="'.$row['id_product'].'"> 
                             </div>
                             ';
                         }
@@ -176,6 +181,23 @@
                                 }
                             ?>
                             <span><?php print $parPiece;?></span>
+                            <?php
+                                if(isset($_POST['parPieceBtn'])){
+                                    $id = htmlentities(mysqli_real_escape_string($con, trim($_POST['myId'])));
+                                    $ParPiece = htmlentities(mysqli_real_escape_string($con, trim($_POST['parPiece'])));
+
+                                    /*if(empty($ParPiece)){array_push($errors, "Vous n'avez rien selection");} */
+
+                                    if(count($errors) == 0){
+                                        $sqlParPiece = mysqli_query($con, "UPDATE savingproduct SET Par_Piece = '$ParPiece' WHERE id_product = '$id'");
+                                        if($sqlParPiece)
+                                            array_push($errors, "Votre modification a reussi");
+                                        else
+                                            array_push($errors, "Echec reessaie");
+                                    }
+                                }
+                                include("./config/errors.php");
+                            ?>
                             <form action="" method="post">
                                 <input type="hidden" name="myId" value="<?php print $array[0];?>">
                                 <div class="d-flex justify-content-between align-items-center">
@@ -192,10 +214,26 @@
                         </div>
                     </div>
                     <div class="card mt-5 shadow">
+                        
                         <div class="card-header p-1">
                             <h3 class="text-warning">Monnaie</h3>
                         </div>
                         <div class="card-body">
+                            <?php
+                                if(isset($_POST['monnaieBtn'])){
+                                    $id = htmlentities(mysqli_real_escape_string($con, trim($_POST['myId'])));
+                                    $money = htmlentities(mysqli_real_escape_string($con, trim($_POST['monnaie'])));
+
+                                    if(empty($money)){array_push($errors, "Monnaie est vide");}
+
+                                    if(count($errors) == 0){
+                                        $sqlMoney = mysqli_query($con, "UPDATE savingproduct SET Monnaie = '$money' WHERE id_product = '$id'");
+                                        if($sqlMoney){array_push($success, "Modification Reussi");}
+                                        else{array_push($errors, "Echec reessaie encore plus tard");}
+                                    }
+                                }
+                                include("./config/errors.php");
+                            ?>
                             <?php
                                 if($array[2] == 'Francs'):?>
                                     <p class="text-success">
@@ -218,22 +256,23 @@
                                         <option value="Francs">Francs</option>
                                         <option value="Dollars">Dollars</option>
                                     </select>
-                                    <button type="submit" class="btn ml-3 btn-warning">
+                                    <button type="submit" name="monnaieBtn" class="btn ml-3 btn-warning">
                                         <i class="icon edit"></i>
                                     </button>
                                 </div>
                             </form>
                         </div>
                     </div>
+                    <a href="stock.php" class="btn btn-warning btn-sm mt-3">Retour</a>
                 </div>
             <?php else:?>
                 <div class="col-md-8 col-sm-12 col-lg-8">
-                    <form action="" method="post">
+                    <form action="" method="post" autocomplete="off">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fa fa-search"></i></span>
                             </div>
-                            <input type="search" class="form-control" placeholder="Recherche...">
+                            <input type="search" id="search" class="form-control" placeholder="Recherche...">
                         </div>
                     </form>
                     <div class="table-responsive">
@@ -242,10 +281,10 @@
                                 <tbody>
                                     <tr>
                                         <td>Goma</td>
-                                        <td>Goma</td>
-                                        <td>Goma</td>
-                                        <td>Goma</td>
-                                        <td>Goma</td>
+                                        <td>Bukavu</td>
+                                        <td>Kinshasa</td>
+                                        <td>Sniper Ghost for Goma</td>
+                                        <td>WEBdesign</td>
                                         <td>
                                             <div class="btn-group">
                                                 <button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
@@ -262,8 +301,8 @@
                     </div>
                 </div>
             <?php endif;?>
-            <div class="col-md-4">
-                <a href="#ajouter" class="mb-3 btn btn-sm btn-primary d-flex justify-content-between align-items-center">
+            <div class="col-md-4 col-lg-4 col-sm-12">
+                <a href="./includes/addproduct.php" class="mb-3 btn btn-sm btn-primary d-flex justify-content-between align-items-center">
                     Ajouter Produits
                     <i class="fa fa-plus"></i>
                 </a>
@@ -283,15 +322,43 @@
         </div>
     </div>
 
-    <script>
-        $(document).ready(function(){
-          $('[data-toggle="tooltip"]').tooltip();
-        });
-    </script>
+
     <script>
         jQuery(document).ready( function(){
             normalStock();
+            modification();
+            $('#search').keyup( function(){
+                let text = $(this).val();
+                let action = 'search-stock';
+                if(text != ''){
+                    $.ajax({
+                        url: './config/event.php',
+                        method: 'post',
+                        data: {action: action, text: text},
+                        dataType: 'text',
+                        success: function(data){
+                            $('#search-stock').html(data)
+                            $('#normal-stock').hide(200);
+                        }
+                    });
+                }else{
+                    $('#search-stock').html('');
+                    $('#normal-stock').show(200);
+                }
+            })
         });
+        function modification(){
+            let id = $('#myId').val();
+            let action = 'modification';
+            $.ajax({
+                url: './config/event.php',
+                data: {id: id, action: action},
+                method: 'post',
+                success: function(data){
+                    $('#modification').html(data)
+                }
+            })
+        }
         function normalStock(){
             let action = 'normal-stock';
             $.ajax({

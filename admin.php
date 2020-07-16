@@ -12,7 +12,7 @@
         $array[0] = $data['id'];
         $array[1] = $data['Compte'];
         $array[2] = $data['Nom'];
-        $array[3] = $data['Mot_de_pass'];
+        $array[3] = $data['Mot_de_passe'];
         $array[4] = $data['Fonction'];
     }
     $output = '';
@@ -56,7 +56,13 @@
                     <a class="nav-link active" href="admin.php"><i class="fa fa-users"></i> Personnelles</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="profil.php"><i class="fa fa-user"></i> Profil</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="propos.php"><i class="fa fa-comment"></i> A propos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./includes/logout.php"><i class="icon logout"></i> Se deconnecte</a>
                 </li>
             </ul>
         </div>
@@ -153,9 +159,9 @@
                                             $arryUser[1] = $data['Compte'];
                                             $arryUser[2] = $data['Nom'];
                                             $arryUser[3] = $data['Fonction'];
-                                            $arryUser[4] = $data['Mot_de_pass'];
+                                            $arryUser[4] = $data['Mot_de_passe'];
                                             $output .= '
-                                                <div class="card">
+                                                <div class="card shadow">
                                                     <div class="card-header p-1">
                                                         <p class="text-primary p-0 m-0">'.$data['Nom'].'</p>
                                                     </div>
@@ -172,7 +178,6 @@
                                                             Fonction:
                                                             <span class="">'.$data['Fonction'].'</span>
                                                         </p>
-                                                        <button class="btn btn-block btn-primary d-flex justify-content-between align-items-center">Modifie <i class="fa fa-edit"></i></button>
                                                     </div>
                                                 </div>
                                             ';
@@ -192,7 +197,7 @@
                                 <div class="row">
                                     <div class="col-md-5">
                                         <?php print $output;?>
-                                        <div class="card mt-3">
+                                        <div class="card mt-3 shadow">
                                             <div class="card-header p-1">
                                                 <h3 class="m-0 p-0 text-warning">Info personnel <i
                                                         class="fa fa-lock"></i></h3>
@@ -208,9 +213,10 @@
                                                     cet compte <i class="fa fa-user-alt"></i></a>
                                             </div>
                                         </div>
+                                        <a href="profil.php" class="btn btn-warning btn-md mt-3 text-light shadow">Mon profil</a>
                                     </div>
                                     <div class="col-md-7">
-                                        <div class="card">
+                                        <div class="card shadow">
                                             <div class="card-header p-1">
                                                 <h3 class="text-warning">Modifie cet compte <i class="fa fa-user"></i>
                                                 </h3>
