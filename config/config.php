@@ -28,7 +28,7 @@ if(isset($_POST['login'])){
             $_SESSION = @mysqli_fetch_array($sql, MYSQLI_ASSOC);
             $_SESSION['Admin'] = (int)$_SESSION['Admin'];
             
-            $url = ($_SESSION['Admin'] === 1) ? 'index.php' : '404.php';
+            $url = ($_SESSION['Admin'] === 1) ? 'index.php' : './Users/';
 
             header("Location: ". $url);
             exit();
@@ -481,4 +481,3 @@ if(isset($_POST['updatePersonnel'])){
             print '<p class="ui meeage negative alert alert-danger">Echec probleme de reseaux veillez contact le Service</p>';
     }
 }
-?>

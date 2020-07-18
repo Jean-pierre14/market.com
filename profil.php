@@ -1,29 +1,11 @@
-<?php
-    session_start();
-    include("./config/db.min.php");
-    if(!isset($_SESSION['Compte']) && $_SESSION['Compte'] == ''){
-        header("Location: login.php");
-    }
-    $idUser = $_SESSION['Compte'];
-
-    $sql = mysqli_query($con, "SELECT * FROM login WHERE Compte = '$idUser'");
-    while($data = mysqli_fetch_array($sql)){
-        $array = [];
-        $array[0] = $data['id'];
-        $array[1] = $data['Compte'];
-        $array[2] = $data['Nom'];
-        $array[3] = $data['Mot_de_passe'];
-        $array[4] = $data['Fonction'];
-    }
-    $output = '';
-?>
+<?php include("security.hacker.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Market.org/<?php print $array[1];?></title>
+    <title>Market.org/<?php print $array[1]; ?></title>
     <link rel="shortcut icon" href="./images/loader.gif" type="image/x-icon">
     <link rel="stylesheet" href="./css/all.min.css">
     <link rel="stylesheet" href="./css/bootstrap.min.css">
@@ -72,9 +54,9 @@
             <div class="col-md-5 col-sm-12 col-lg-6 mt-3 bg-light border-radius p-1 shadow">
                 <p class="text-center display-4">
                     Profile
-                    <input type="hidden" id="MyAccount" value="<?php print $array[0];?>">
+                    <input type="hidden" id="MyAccount" value="<?php print $array[0]; ?>">
                 </p>
-                
+
             </div>
         </div>
         <div id="myAccount"></div>
@@ -86,82 +68,96 @@
                         <div class="col-md-6 col-lg-6 col-sm-12">
                             <form action="" method="post">
                                 <?php
-                                    if(isset($_POST['btnName'])){
-                                        $id = htmlentities(mysqli_real_escape_string($con, trim($_POST['myId'])));
-                                        $name = htmlentities(mysqli_real_escape_string($con, trim($_POST['name'])));
+                                if (isset($_POST['btnName'])) {
+                                    $id = htmlentities(mysqli_real_escape_string($con, trim($_POST['myId'])));
+                                    $name = htmlentities(mysqli_real_escape_string($con, trim($_POST['name'])));
 
-                                        if(empty($name)){ print '<p class="alert alert-warning ui success message">Le champ de nom est vide</p>'; }
+                                    if (empty($name)) {
+                                        print '<p class="alert alert-warning ui success message">Le champ de nom est vide</p>';
+                                    }
 
-                                        if(!empty($name)){
-                                            $sqlName = mysqli_query($con, "UPDATE `login` SET Nom = '$name' WHERE id = '$id'");
-                                            if($sqlName){
-                                                print '<p class="alert alert-warning ui success message">Modification a reussi</p>';
-                                            }else{
-                                                print '<p class="alert alert-warning ui error message">Modification a Echoue</p>';
-                                            }
+                                    if (!empty($name)) {
+                                        $sqlName = mysqli_query($con, "UPDATE `login` SET Nom = '$name' WHERE id = '$id'");
+                                        if ($sqlName) {
+                                            print '<p class="alert alert-warning ui success message">Modification a reussi</p>';
+                                        } else {
+                                            print '<p class="alert alert-warning ui error message">Modification a Echoue</p>';
                                         }
                                     }
+                                }
                                 ?>
                                 <div class="form-group">
                                     <label for="name">Nom</label>
-                                    <input type="hidden" name="myId" value="<?php print $array[0];?>" class="form-control">
-                                    <input type="text" name="name" id="name" value="<?php print $array[2];?>" class="form-control" placeholder="Entre votre nom">
+                                    <input type="hidden" name="myId" value="<?php print $array[0]; ?>"
+                                        class="form-control">
+                                    <input type="text" name="name" id="name" value="<?php print $array[2]; ?>"
+                                        class="form-control" placeholder="Entre votre nom">
                                 </div>
                                 <div class="form-group">
-                                    <button type="submit" name="btnName" class="ui button labeled icon bg-warning text-light">Edit <i class="icon refresh"></i></button>
+                                    <button type="submit" name="btnName"
+                                        class="ui button labeled icon bg-warning text-light">Edit <i
+                                            class="icon refresh"></i></button>
                                 </div>
                             </form>
                         </div>
                         <div class="col-md-6 col-lg-6 col-sm-12">
                             <form action="" method="post">
                                 <?php
-                                    if(isset($_POST['btnCompte'])){
-                                        $id = htmlentities(mysqli_real_escape_string($con, trim($_POST['myId'])));
-                                        $compte = htmlentities(mysqli_real_escape_string($con, trim($_POST['compte'])));
+                                if (isset($_POST['btnCompte'])) {
+                                    $id = htmlentities(mysqli_real_escape_string($con, trim($_POST['myId'])));
+                                    $compte = htmlentities(mysqli_real_escape_string($con, trim($_POST['compte'])));
 
-                                        if(empty($compte)){ print '<p class="alert alert-warning ui success message">Le champ de nom est vide</p>'; }
+                                    if (empty($compte)) {
+                                        print '<p class="alert alert-warning ui success message">Le champ de nom est vide</p>';
+                                    }
 
-                                        if(!empty($compte)){
-                                            $sqlcompte = mysqli_query($con, "UPDATE `login` SET Compte = '$compte' WHERE id = '$id'");
-                                            if($sqlcompte){
-                                                print '<p class="alert alert-warning ui success message">Modification a reussi</p>';
-                                            }else{
-                                                print '<p class="alert alert-warning ui error message">Modification a Echoue</p>';
-                                            }
+                                    if (!empty($compte)) {
+                                        $sqlcompte = mysqli_query($con, "UPDATE `login` SET Compte = '$compte' WHERE id = '$id'");
+                                        if ($sqlcompte) {
+                                            print '<p class="alert alert-warning ui success message">Modification a reussi</p>';
+                                        } else {
+                                            print '<p class="alert alert-warning ui error message">Modification a Echoue</p>';
                                         }
                                     }
+                                }
                                 ?>
                                 <div class="form-group">
                                     <label for="name">Compte</label>
-                                    <input type="hidden" name="myId" value="<?php print $array[0];?>" class="form-control">
-                                    <input type="text" name="compte" id="compte" value="<?php print $array[1];?>" class="form-control" placeholder="Entre nom de compte">
+                                    <input type="hidden" name="myId" value="<?php print $array[0]; ?>"
+                                        class="form-control">
+                                    <input type="text" name="compte" id="compte" value="<?php print $array[1]; ?>"
+                                        class="form-control" placeholder="Entre nom de compte">
                                 </div>
                                 <div class="form-group">
-                                    <button type="submit" name="btnCompte" class="ui button labeled icon bg-warning text-light">Edit <i class="icon refresh"></i></button>
+                                    <button type="submit" name="btnCompte"
+                                        class="ui button labeled icon bg-warning text-light">Edit <i
+                                            class="icon refresh"></i></button>
                                 </div>
                             </form>
                         </div>
                         <div class="col-md-12 col-lg-12 col-sm-12">
                             <form action="" method="post">
-                                <input type="hidden" name="myId" value="<?php print $array[0];?>" class="form-control">
+                                <input type="hidden" name="myId" value="<?php print $array[0]; ?>" class="form-control">
                                 <div class="form-group">
-                                <?php
-                                    if(isset($_POST['btnFonction'])){
+                                    <?php
+                                    if (isset($_POST['btnFonction'])) {
                                         $id = htmlentities(mysqli_real_escape_string($con, trim($_POST['myId'])));
                                         $fonction = htmlentities(mysqli_real_escape_string($con, trim($_POST['fonction'])));
 
-                                        if(empty($fonction)){ print '<p class="alert alert-warning ui success message">selectione une fonction</p>'; }
+                                        if (empty($fonction)) {
+                                            print '<p class="alert alert-warning ui success message">selectione une fonction</p>';
+                                        }
 
-                                        if(!empty($fonction)){
+                                        if (!empty($fonction)) {
                                             $sqlfonction = mysqli_query($con, "UPDATE `login` SET Fonction = '$fonction' WHERE id = '$id'");
-                                            if($sqlfonction){
+                                            if ($sqlfonction) {
                                                 print '<p class="alert alert-warning ui success message">Modification a reussi</p>';
-                                            }else{
+                                            } else {
                                                 print '<p class="alert alert-warning ui error message">Modification a Echoue</p>';
                                             }
                                         }
                                     }
-                                ?>
+                                    ?>
                                     <label for="fonction">Fonction</label>
                                     <select name="fonction" id="fonction" class="custom-select">
                                         <option value="">-- selection --</option>
@@ -172,13 +168,15 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <button type="submit" name="btnFonction" class="ui button labeled icon bg-warning text-light">Edit <i class="icon refresh"></i></button>
+                                    <button type="submit" name="btnFonction"
+                                        class="ui button labeled icon bg-warning text-light">Edit <i
+                                            class="icon refresh"></i></button>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </div>
@@ -220,21 +218,25 @@
 </body>
 
 <script>
-    $(document).ready( function(){
-        profile();    
+$(document).ready(function() {
+    profile();
+})
+
+function profile() {
+    let id = $('#MyAccount').val();
+    let action = 'profile';
+    $.ajax({
+        url: './config/event.php',
+        method: 'post',
+        data: {
+            action: action,
+            id: id
+        },
+        success: function(data) {
+            $('#myAccount').html(data)
+        }
     })
-    function profile(){
-        let id = $('#MyAccount').val();
-        let action = 'profile';
-        $.ajax({
-            url: './config/event.php',
-            method: 'post',
-            data: {action: action, id: id},
-            success: function(data){
-                $('#myAccount').html(data)
-            }
-        })
-    }
+}
 </script>
 
 </html>

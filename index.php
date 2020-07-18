@@ -1,23 +1,4 @@
-<?php
-session_start();
-include("./config/db.min.php");
-if (!isset($_SESSION['Compte']) && $_SESSION['Compte'] == '') {
-    header("Location: login.php");
-}
-$idUser = $_SESSION['Compte'];
-
-$sql = mysqli_query($con, "SELECT * FROM login WHERE Compte = '$idUser'");
-while ($data = mysqli_fetch_array($sql)) {
-    $array = [];
-    $array[0] = $data['id'];
-    $array[1] = $data['Compte'];
-    $array[2] = $data['Nom'];
-    $array[3] = $data['Mot_de_passe'];
-    $array[4] = $data['Fonction'];
-    $array[5] = $data['Admin'];
-}
-$output = '';
-?>
+<?php include("security.hacker.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -84,15 +65,14 @@ $output = '';
                         <b class="ui display-5">Vente d'aujourd'hui</b>
                         <p class="venteJour"></p>
                     </div>
-                    <button class="ui mt-3 button btn blue icon labeled left">Actualise <i
-                            class="icon refresh"></i></button>
+                    <a href="index.php" class="ui mt-3 button btn blue icon labeled left">Actualise <i
+                            class="icon refresh"></i></a>
                 </div>
             </div>
             <div class="col-md-5 pt-3">
                 <input type="hidden" id="MyAccountId" value="<?php print $array[0]; ?>" class="form-control">
                 <div class="box bg-primary shadow">
                     <div id="MyProfil"></div>
-
                 </div>
             </div>
         </div>
@@ -128,12 +108,12 @@ $output = '';
                                 <i class="fas fa-chart-line"></i>
                             </div>
                         </div>
-                        <h3 class="text-danger chiffreDaffaire">Ouvree pour verifie</h3>
+                        <h3 class="text-danger chiffreDaffaire">clique pour voir</h3>
                     </div>
                 </a>
             </div>
             <div class="col-md-3">
-                <a href="sortie.php">
+                <a href="./includes/sortie.php">
                     <div class="box hover bg-white shadow">
                         <div class="d-flex justify-content-between align-items-center">
                             <h3 class="text-primary">Depences</h3>
@@ -141,7 +121,7 @@ $output = '';
                                 <i class="fas fa-tags"></i>
                             </div>
                         </div>
-                        <h3 class="text-danger">12 390 000 <small>Dollars</small></h3>
+                        <h3 class="text-danger">Clique pour voir</small></h3>
                     </div>
                 </a>
             </div>

@@ -274,6 +274,113 @@ if (isset($_POST['action'])) {
         $row = mysqli_fetch_array($sql);
         print $row['SUM(Montant)'] . ' fc';
     }
+    if ($_POST['action'] == 'EntreDollar') {
+        $sql = mysqli_query($con, "SELECT * FROM entreemontantdollar");
+        $row = mysqli_fetch_array($sql);
+        print $row['SUM(Montant)'] . '<b>$</b>';
+    }
+    if ($_POST['action'] == 'table') {
+        $sql = mysqli_query($con, "SELECT * FROM entree ORDER BY Numero DESC");
+        if (@mysqli_fetch_array($sql) > 0) {
+            $output .= '
+            <table class="table table-sm table-striped table-hover" id="print">
+                <thead>
+                    <tr>
+                        <th>Montant</th>
+                        <th>Monnaie</th>
+                        <th>Motif</th>
+                        <th>Date</th>
+                        <th>Heur</th>
+                    </tr>
+                </thead>
+                <tbody>
+                ';
+            while ($row = mysqli_fetch_array($sql)) {
+                $output .= '
+                    <tr class="">
+                        <td class="">' . $row['Montant'] . '</td>
+                        <td class="">' . $row['Monnaie'] . '</td>
+                        <td class="">' . $row['Motif'] . '</td>
+                        <td class="">' . $row['Date'] . '</td>
+                        <td class="">' . $row['Heure'] . '</td>
+                    </tr>
+                ';
+            }
+            $output .= '
+                    </tbody>
+                </table>
+            ';
+        } else {
+            $output .= '<p class="alert alert-danger">Vous n\'avez pas des operation ici</p>';
+        }
+        print $output;
+    }
+    if ($_POST['action'] == 'tableSortie') {
+        $sql = mysqli_query($con, "SELECT * FROM sortie ORDER BY Numero DESC");
+        if (@mysqli_num_rows($sql) > 0) {
+            $output .= '
+            <table class="ui table table-hover table-sm shadow">
+                <thead>
+                    <tr class="">
+                        <th class="">Montant</th>
+                        <th class="">Monnaie</th>
+                        <th class="">Date</th>
+                        <th class="">Heur</th>
+                    </tr>
+                </thead>
+                <tbody>
+            ';
+            while ($row = mysqli_fetch_array($sql)) {
+                $output .= '
+                    <tr class="">
+                        <td class="">' . $row['Montant'] . '</td>
+                        <td class="">' . $row['Monnaie'] . '</td>
+                        <td class="">' . $row['Date'] . '</td>
+                        <td class="">' . $row['Heure'] . '</td>
+                    </tr>
+                ';
+            }
+            $output .= '
+                </tbody>
+            </table>';
+        } else {
+            $output .= '<p class="alert alert-danger">Vous n\'avez pas des Sortie dans votre systeme</p>';
+        }
+        print $output;
+    }
+    if ($_POST['action'] == 'tableSortieAchat') {
+        $sql = mysqli_query($con, "SELECT * FROM sortie_achat ORDER BY Numero DESC");
+        if (@mysqli_num_rows($sql) > 0) {
+            $output .= '
+            <table class="ui table table-hover table-sm mt-3 mb-3 shadow">
+                <thead>
+                    <tr class="">
+                        <th class="">Montant</th>
+                        <th class="">Monnaie</th>
+                        <th class="">Date</th>
+                        <th class="">Heur</th>
+                    </tr>
+                </thead>
+                <tbody>
+            ';
+            while ($row = mysqli_fetch_array($sql)) {
+                $output .= '
+                    <tr class="">
+                        <td class="">' . $row['Montant'] . '</td>
+                        <td class="">' . $row['Monnaie'] . '</td>
+                        <td class="">' . $row['Date'] . '</td>
+                        <td class="">' . $row['Heure'] . '</td>
+                    </tr>
+                ';
+            }
+            $output .= '
+                </tbody>
+            </table>';
+        } else {
+            $output .= '<p class="alert alert-danger">Vous n\'avez pas des Sortie dans votre systeme</p>';
+        }
+        print $output;
+    }
 }
 
 if (isset($_POST['ajouter'])) {

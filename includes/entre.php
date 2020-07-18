@@ -77,6 +77,8 @@ $output = '';
                         <p>
                             Toutes les donnees sont simplifie pour vous et rien que vous
                         </p>
+                        <a href="../index.php" class="hide-lg show-sm btn btn-sm btn-warning float-left mb-2">Retour <i
+                                class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <div class="card mt-3">
@@ -86,19 +88,31 @@ $output = '';
                         </h3>
                     </div>
                     <div class="card-body">
-                        <div class="dflex justify-content-between align-items-center">
+                        <p class="dflex justify-content-between align-items-center">
+                            <span>
+                                Dollar:
+                            </span>
+                            <span class="text-success" id="EntreDollar">
+                                000000
+                            </span>
+                        </p>
+                        <p class="dflex justify-content-between align-items-center">
                             <span>
                                 Francs
                             </span>
                             <span class="text-danger" id="EntreFranc">
                                 000000
                             </span>
-                        </div>
+                        </p>
                     </div>
                 </div>
             </div>
             <div class="col-md-9 col-sm-12 col-lg-9">
-                <h3 class="display-1">Table</h3>
+                <div class="table-responsive">
+                    <div id="table"></div>
+                    <button type="button" class="btn btn-sm btn-primary" id="printEnter">Imprime</button>
+                    <a href="sortie.php" class="btn btn-sm btn-warning text-light">Voir les sorties</a>
+                </div>
             </div>
         </div>
     </div>
@@ -113,7 +127,7 @@ $output = '';
             </div>
         </div>
     </div>
-
+    <script src="../js/printthis.js"></script>
     <script>
     window.addEventListener('scroll', function() {
         let scroll = document.querySelector('#TopBtn');
@@ -124,7 +138,61 @@ $output = '';
     $().ready(() => {
         MyProfil();
         EntreFranc();
+        EntreDollar();
+        table();
+        $('#printEnter').click('click', function() {
+            $('#print').printThis({
+                debug: false, // show the iframe for debugging
+                importCSS: true, // import parent page css
+                importStyle: false, // import style tags
+                printContainer: true, // print outer container/$.selector
+                loadCSS: "../css/bootstrap.min.css", // path to additional css file - use an array [] for multiple
+                pageTitle: "Kivu Alimentation", // add title to print page
+                removeInline: false, // remove inline styles from print elements
+                removeInlineSelector: "*", // custom selectors to filter inline styles. removeInline must be true
+                printDelay: 333, // variable print delay
+                header: "<h3 class='text-center text-uppercase text-primary'>KiVu Alimentation</h3>", // prefix to html
+                footer: null, // postfix to html
+                base: false, // preserve the BASE tag or accept a string for the URL
+                formValues: true, // preserve input/form values
+                canvas: false, // copy canvas content
+                doctypeString: '...', // enter a different doctype for older markup
+                removeScripts: false, // remove script tags from print content
+                copyTagClasses: false, // copy classes from the html & body tag
+                beforePrintEvent: null, // function for printEvent in iframe
+                beforePrint: null, // function called before iframe is filled
+                afterPrint: null // function called before iframe is removed
+            });
+        })
     })
+
+    function table() {
+        let action = 'table';
+        $.ajax({
+            url: '../config/event.php',
+            method: 'post',
+            data: {
+                action: action
+            },
+            success: function(data) {
+                $('#table').html(data)
+            }
+        })
+    }
+
+    function EntreDollar() {
+        let action = 'EntreDollar';
+        $.ajax({
+            url: '../config/event.php',
+            method: 'post',
+            data: {
+                action: action
+            },
+            success: function(data) {
+                $('#EntreDollar').html(data)
+            }
+        })
+    }
 
     function EntreFranc() {
         let action = 'EntreFranc';
