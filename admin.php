@@ -184,8 +184,10 @@
                                         <?php print $output; ?>
                                         <div class="card mt-3 shadow">
                                             <div class="card-header p-1">
-                                                <h3 class="m-0 p-0 text-warning">Info personnel <i
-                                                        class="fa fa-lock"></i></h3>
+                                                <h3 class="m-0 p-0 text-warning">
+                                                    Info personnel
+                                                    <i class="fa fa-lock"></i>
+                                                </h3>
                                             </div>
                                             <div class="card-body">
                                                 <a href="admin.php?password=<?php print $arryUser[0]; ?>"
@@ -209,9 +211,9 @@
                                             </div>
                                             <div class="card-body">
                                                 <?php
-                                                    require_once("./config/config.php");
-                                                    include("./config/errors.php");
-                                                ?>
+                                                        require_once("./config/config.php");
+                                                        include("./config/errors.php");
+                                                        ?>
                                                 <form action="" method="post">
                                                     <div class="form-row">
                                                         <div class="form-group col-md-6">

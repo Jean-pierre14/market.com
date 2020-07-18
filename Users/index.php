@@ -1,11 +1,12 @@
 <?php include("./security.hash.php"); ?>
+<?php require_once("./e.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Market.org</title>
+    <title><?php print $boutique . '/' . $array[1]; ?></title>
     <link rel="shortcut icon" href="../images/BarcodeScanner.PNG" type="image/x-icon">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/semantic/semantic.min.css">
@@ -22,7 +23,7 @@
     <div class="container-fluid m-0 p-0">
         <?php if ($array[4] == 'Gerant') : ?>
         <!-- Gerant page -->
-        <?php include("./includes/gerant.php"); ?>
+        <?php include("./includes/logisticien.php"); ?>
         <!-- Gerant page -->
         <?php elseif ($array[4] == 'Comptable') : ?>
         <h3 class="display-1">Comptable</h3>
