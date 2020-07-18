@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,27 +14,30 @@
     <script src="./js/bootstrap.min.js"></script>
     <script src="./js/lightbox-plus-jquery.min.js"></script>
 </head>
+
 <body>
     <div class="container-fluid m-0 p-0">
         <div class="row justify-content-center">
-            <div class="col-md-3 mt-5">
+            <div class="col-md-3 col-sm-12 col-lg-3 shadow mt-5 p-2">
                 <div class="card">
-                    <h3 class="text-center text-primary m-0 p-0 mt-2">Market kivu</h3>
+                    <h3 class="text-center text-warning p-0 my-3">Market kivu</h3>
                     <div class="card-body">
-                        <?php require_once("./config/config.php");?>
-                        <?php include("./config/errors.php");?>
+                        <?php require_once("./config/config.php"); ?>
+                        <?php include("./config/errors.php"); ?>
                         <form action="" method="post">
                             <div class="form-group">
-                                <label for="username">Username</label>
-                                <input type="text" value="<?php print $username;?>" name="username" id="username" class="form-control" placeholder="Username">
+                                <label for="username">Nom du Compte</label>
+                                <input type="text" value="<?php print $username; ?>" name="username" id="username"
+                                    class="form-control" placeholder="Nom du compte">
                             </div>
                             <div class="form-group">
-                                <label for="password">Password</label>
-                                <input type="password" value="<?php print $pass;?>" name="password" id="password" placeholder="Password" class="form-control">
+                                <label for="password">Mot de passe</label>
+                                <input type="password" value="<?php print $pass; ?>" name="password" id="password"
+                                    placeholder="Mot de passe" class="form-control">
                             </div>
                             <div class="form-group">
-                                <button type="submit" name="login" class="btn btn-sm btn-primary btn-block">
-                                    Log In 
+                                <button type="submit" name="login" class="btn btn-md btn-primary btn-block">
+                                    Log In
                                     <i class="fa fa-arrow-circle-right"></i>
                                 </button>
                             </div>
@@ -43,6 +47,7 @@
             </div>
         </div>
     </div>
-    
+
 </body>
+
 </html>

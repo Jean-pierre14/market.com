@@ -1,8 +1,7 @@
 <?php
 
 require_once("../../config/db.min.php");
-// Boutique name
-$boutique = "l'alimation Kivu";
+
 
 // Varibles
 $output = '';

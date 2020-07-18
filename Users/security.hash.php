@@ -2,10 +2,10 @@
 session_start();
 include("../config/db.min.php");
 if (!isset($_SESSION['Compte']) && $_SESSION['Compte'] == '') {
-    header("Location: login.php");
+    header("Location: ../login.php");
 }
 if ($_SESSION['Admin'] != 0) {
-    header("Location: login.php");
+    header("Location: ../login.php");
 }
 $idUser = $_SESSION['id'];
 
