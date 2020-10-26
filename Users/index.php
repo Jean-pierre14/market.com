@@ -9,7 +9,7 @@
         <!-- Gerant page -->
         <?php elseif ($array[4] == 'Comptable') : ?>
         <h3 class="display-1">Comptable</h3>
-        <?php elseif ($array[4] == 'Reception') : ?>
+        <?php elseif ($array[4] == 'Comptoir') : ?>
         <h3 class="display-1">Reception</h3>
         <?php elseif ($array[4] == 'Ouvrie') : ?>
         <h3 class="display-1">Ouvrie</h3>

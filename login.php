@@ -17,9 +17,9 @@
 
 <body>
     <div class="container-fluid m-0 p-0">
-        <div class="row justify-content-center">
-            <div class="col-md-3 col-sm-12 col-lg-3 shadow mt-5 p-2">
-                <div class="card">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-3 col-sm-12 col-lg-3 p-2">
+                <div class="card shadow">
                     <h3 class="text-center text-warning p-0 my-3">Market kivu</h3>
                     <div class="card-body">
                         <?php require_once("./config/config.php"); ?>
