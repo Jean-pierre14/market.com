@@ -144,9 +144,9 @@ $output = '';
             $('#print').printThis({
                 debug: false, // show the iframe for debugging
                 importCSS: true, // import parent page css
-                importStyle: false, // import style tags
+                importStyle: true, // import style tags
                 printContainer: true, // print outer container/$.selector
-                loadCSS: "../css/bootstrap.min.css", // path to additional css file - use an array [] for multiple
+                loadCSS: "../../css/bootstrap.min.css", // path to additional css file - use an array [] for multiple
                 pageTitle: "Kivu Alimentation", // add title to print page
                 removeInline: false, // remove inline styles from print elements
                 removeInlineSelector: "*", // custom selectors to filter inline styles. removeInline must be true
