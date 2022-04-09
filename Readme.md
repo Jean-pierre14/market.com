@@ -1,5 +1,5 @@
-# Cote users comptable, logisticien, admin, comptoir
+# Un projet permettant au comptable, le boss et le gerant d'access a la platform
+
 ---
 
-## vous avez un nouveau disctionnaire
-
+## Vous avez un nouveau dictionnaire
